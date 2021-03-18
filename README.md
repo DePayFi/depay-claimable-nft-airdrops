@@ -16,6 +16,10 @@ airdrop receiver to redeem them for the NFT.
 
 [DePayNFTAirdropV1 0x1ceadd57e477901499c08aec5d2044cc3430d7fc](https://ropsten.etherscan.io/address/0x1ceadd57e477901499c08aec5d2044cc3430d7fc)
 
+[ERC721 0xe7f982e9f25471bc1dd6a84a5433274834d7853f9b49357ece40538ce2c5d7af](https://ropsten.etherscan.io/tx/0xe7f982e9f25471bc1dd6a84a5433274834d7853f9b49357ece40538ce2c5d7af)
+
+[ERC1155 0xb6bb75ae8af249891b1cdcb92a6cb74c6c1b30f8](https://ropsten.etherscan.io/address/0xb6bb75ae8af249891b1cdcb92a6cb74c6c1b30f8)
+
 ## Functionalities
 
 ### `claim` Claim NFT
