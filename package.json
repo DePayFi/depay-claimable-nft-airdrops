@@ -1,11 +1,11 @@
 {
-  "name": "@depay/depay-ethereum-router",
-  "description": "DePay's Ethereum Router",
-  "version": "1.1.0",
+  "name": "@depay/depay-claimable-nft-airdrops",
+  "description": "DePay's Claimable NFT airdrops",
+  "version": "1.0.0",
   "homepage": "https://depay.fi",
   "repository": {
     "type": "git",
-    "url": "https://github.com/depayfi/depay-ethereum-router"
+    "url": "https://github.com/depayfi/depay-claimable-nft-airdrops"
   },
   "keywords": [
     "depay",
