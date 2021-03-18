@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.7.5 <0.8.0;
 
-import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v3.4/contracts/access/Ownable.sol";
-import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v3.4/contracts/token/ERC1155/ERC1155.sol";
-import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v3.4/contracts/token/ERC721/IERC721.sol";
-import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v3.4/contracts/utils/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
+import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
 contract DePayNFTAirdropV1 is Ownable, ReentrancyGuard {
 
@@ -59,9 +59,11 @@ contract DePayNFTAirdropV1 is Ownable, ReentrancyGuard {
     ////////////////////////////////////////////////
     //////// C O N S T R U C T O R
     //
-    // Initalizes the EIP712 domain separator.
+    // Sets the contract owner
+    // and initalizes the EIP712 domain separator.
     //
     constructor() public {
+      owner = msg.sender;
       domainSeparator = keccak256(abi.encode(
         domainTypeHash,
         keccak256("DePayNFTAirdropV1")
@@ -104,7 +106,7 @@ contract DePayNFTAirdropV1 is Ownable, ReentrancyGuard {
 
       if(isERC1155) { // ERC1155
         IERC1155 token = IERC1155(tokenAddress);
-        token.safeTransferFrom(distributor, receiver, tokenId, 1, bytes(""));
+        token.safeTransferFrom(distributor, receiver, tokenId, 1, bytes(0));
       } else { // ERC721
         IERC721 token = IERC721(tokenAddress);
         token.safeTransferFrom(distributor, receiver, tokenId);
@@ -140,6 +142,6 @@ contract DePayNFTAirdropV1 is Ownable, ReentrancyGuard {
     // Kill contract
     //
     function kill() external onlyOwner {
-      selfdestruct(msg.sender);
+      selfdestruct(owner);
     }
 }
