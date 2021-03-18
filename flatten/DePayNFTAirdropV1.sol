@@ -1325,7 +1325,7 @@ pragma solidity >=0.7.5 <0.8.0;
 
 contract DePayNFTAirdropV1 is Ownable, ReentrancyGuard {
 
-    // Storage for all airdrops to identify executed/canceled airdrops
+    // Storage for all airdrops to identify executed airdrops
     mapping (
       // receiver address
       address => mapping (
@@ -1336,6 +1336,15 @@ contract DePayNFTAirdropV1 is Ownable, ReentrancyGuard {
         )
       )
     ) public airdrops;
+
+    // Storage for all airdrops that have been canceled
+    mapping (
+      // distributor address
+      address => mapping (
+        // token address
+        address => bool
+      )
+    ) public cancledAirdrops;
 
     // Being able to pause the aidrop contract (just in case)
     bool public paused;
@@ -1418,6 +1427,8 @@ contract DePayNFTAirdropV1 is Ownable, ReentrancyGuard {
 
       require(airdrops[receiver][tokenAddress][tokenId] == false, "Receiver has already retrieved this airdrop!");
       airdrops[receiver][tokenAddress][tokenId] = true;
+      
+      require(cancledAirdrops[distributor][tokenAddress] == false, "Distributor has canceled this airdrop!");
 
       if(isERC1155) { // ERC1155
         IERC1155 token = IERC1155(tokenAddress);
@@ -1451,6 +1462,13 @@ contract DePayNFTAirdropV1 is Ownable, ReentrancyGuard {
     //
     function setPausedTo(bool value) external onlyOwner {
       paused = value;
+    }
+
+    //
+    // Cancel airdrop
+    //
+    function cancel(address tokenAddress) external {
+      cancledAirdrops[msg.sender][tokenAddress] = true;
     }
 
     //
